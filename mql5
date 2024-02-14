@@ -1,0 +1,132 @@
+mql5
+// Gold Mini Breakout MT4
+// Developer: Forex Robot Easy Team
+// Developer's site: forexroboteasy.com
+
+// Moving Average function
+double MovingAverage(int period, int shift, int price)
+{
+    // Calculate the Moving Average
+    double ma = iMA(_Symbol, 0, period, shift, MODE_SMA, price);
+    
+    // Return the Moving Average value
+    return ma;
+}
+
+// Range breakout function
+bool RangeBreakout(double range)
+{
+    // Calculate the highest and lowest prices of the range
+    double high = iHigh(_Symbol, 0, 1);
+    double low = iLow(_Symbol, 0, 1);
+    
+    // Calculate the current price
+    double currentPrice = Bid;
+    
+    // Check if the current price breaks the range
+    if (currentPrice > high || currentPrice < low)
+    {
+        // Return true if the range is broken
+        return true;
+    }
+    
+    // Return false if the range is not broken
+    return false;
+}
+
+// Average True Range (ATR) function
+double AverageTrueRange(int period)
+{
+    // Calculate the Average True Range
+    double atr = iATR(_Symbol, 0, period, 0);
+    
+    // Return the Average True Range value
+    return atr;
+}
+
+// Open trading position function
+void OpenPosition(int type, double volume)
+{
+    // Check if the trading position is long or short
+    if (type == OP_BUY)
+    {
+        // Open a long position with the specified volume
+        OrderSend(_Symbol, OP_BUY, volume, Ask, 0, 0, 0, '', 0, 0, clrGreen);
+    }
+    else if (type == OP_SELL)
+    {
+        // Open a short position with the specified volume
+        OrderSend(_Symbol, OP_SELL, volume, Bid, 0, 0, 0, '', 0, 0, clrRed);
+    }
+}
+
+// Close trading position function
+void ClosePosition()
+{
+    // Close all open positions
+    for (int i = OrdersTotal() - 1; i >= 0; i--)
+    {
+        OrderSelect(i, SELECT_BY_POS, MODE_TRADES);
+        OrderClose(OrderTicket(), OrderLots(), MarketInfo(OrderSymbol(), MODE_BID), 0, clrWhite);
+    }
+}
+
+// Customizable trading strategy function
+void CustomizeStrategy(bool grid, bool martingale)
+{
+    // Check if the grid strategy is activated
+    if (grid)
+    {
+        // Implement the grid strategy logic
+        // ...
+        // Your code here
+    }
+    
+    // Check if the martingale strategy is activated
+    if (martingale)
+    {
+        // Implement the martingale strategy logic
+        // ...
+        // Your code here
+    }
+}
+
+// Activate or deactivate Grid and Martingale strategies
+void ActivateStrategies(bool grid, bool martingale)
+{
+    // Check the grid strategy activation status
+    if (grid)
+    {
+        // Activate the grid strategy
+        // ...
+        // Your code here
+    }
+    else
+    {
+        // Deactivate the grid strategy
+        // ...
+        // Your code here
+    }
+    
+    // Check the martingale strategy activation status
+    if (martingale)
+    {
+        // Activate the martingale strategy
+        // ...
+        // Your code here
+    }
+    else
+    {
+        // Deactivate the martingale strategy
+        // ...
+        // Your code here
+    }
+}
+
+// Optimized code for efficient performance and speed
+// ...
+// Your code here
+
+// Test the code on the MT4 platform to ensure compatibility and functionality
+// ...
+// Your code here
